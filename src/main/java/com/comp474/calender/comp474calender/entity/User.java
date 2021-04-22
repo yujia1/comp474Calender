@@ -28,8 +28,8 @@ public class User implements Serializable {
     private String lastName;
 
      //Cascade persist to maintain field itself, fetch to load the field all or only id
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
-    private List<Events> events;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Events events;
 
     public User() {}
 

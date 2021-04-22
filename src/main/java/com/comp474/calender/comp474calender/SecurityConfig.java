@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,7 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //FOR CSRF: You can disable it if the application users did not use it from browsers.
         //For CORS: You can specify the origin and allow HTTP Methods.
         http
-//                .cors().disable()
+                //TODO
+                // check it out
+//                .cors(Customizer.withDefaults())
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/user").hasAnyRole("PROF","STUD")

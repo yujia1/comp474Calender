@@ -39,10 +39,9 @@ public class Events implements Serializable {
     @Column(name = "eventType")
     private EventType eventType;
 
-    @ManyToOne
-    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "events")
     private User users;
 
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "events")
     private List<Appointments> appointments;
 }

@@ -1,5 +1,6 @@
 package com.comp474.calender.comp474calender.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,16 +14,12 @@ import java.util.List;
 @Table(name = "appointments")
 @Getter
 @Setter
-public class Appointments implements Serializable, Comparable<Appointments> {
+public class Appointments implements Serializable {
 
     private static final long serialVersionUID = 1994505605936682926L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "eventType")
-    private EventType eventType;
 
     @Column(name = "start", unique = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -31,22 +28,26 @@ public class Appointments implements Serializable, Comparable<Appointments> {
     @Column(name = "end", unique = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date end;
+
+    @Column(name = "zoomlink")
+    private String zoomLink;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "appointment_status")
+    private AppointmentStatus appointmentStatus;
+
     //TODO
     // many to one students
-    @ManyToOne
-    @JoinColumn(name = "id_student")
-    private Students students;
-    // many to one professors
-    @ManyToOne
-    @JoinColumn(name = "id_professor")
-    private Professors professors;
+//    @ManyToOne
+//    @JoinColumn(name = "id_student")
+//    private Students students;
+//    // many to one professors
+//    @ManyToOne
+//    @JoinColumn(name = "id_professor")
+//    private Professors professors;
 
-    @ManyToMany(mappedBy = "appointments")
-    private List<Events> events;
+    @ManyToOne
+    @JsonIgnore
+    private Events events;
 
-    // compare to
-    @Override
-    public int compareTo(Appointments o) {
-        return this.getStart().compareTo(o.getStart());
-    }
 }

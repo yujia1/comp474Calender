@@ -14,9 +14,6 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @Autowired
-    private UserRepo userRepo;
-
     @PostMapping("/events/create")
     public Events createAppointment(@RequestBody Events events) {
         Events newEvents = eventService.createEvent(events);

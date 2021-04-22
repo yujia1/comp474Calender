@@ -1,5 +1,6 @@
 package com.comp474.calender.comp474calender.controller;
 
+import com.comp474.calender.comp474calender.Service.UserService;
 import com.comp474.calender.comp474calender.entity.Events;
 import com.comp474.calender.comp474calender.entity.Authorities;
 import com.comp474.calender.comp474calender.entity.User;
@@ -11,31 +12,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RestController
 public class RegistrationController {
     @Autowired
-    private UserRepo userRepo;
-    @Autowired
-    private AuthoritiesRepo authoritiesRepo;
+    private UserService userService;
 
     //successfully test in postman
     @PostMapping("/registration")
     public String registerNewUser(@RequestBody User user){
-        user.setEnabled(true);
-        List<Events> events = new ArrayList<>();
-        user.setEvents(events);
-        Authorities authorities = new Authorities(user.getEmailId(), user.getRole());
-        authoritiesRepo.save(authorities);
-        userRepo.save(user);
+        return userService.register(user);
         //TODO
-        // change to login page
-        return "redirect:https://www.google.com";
+        // redirect to login
     }
     @GetMapping("/login")
-    public String login(@RequestBody User user) {
+    public String login(@RequestParam("email") String email, @RequestParam("password") String password) {
         //TODO
-        // change to landing page
+        // redirect to homepage
         return "redirect:https://www.google.com";
+
     }
 }
