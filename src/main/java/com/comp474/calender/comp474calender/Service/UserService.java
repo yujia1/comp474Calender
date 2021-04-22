@@ -8,7 +8,10 @@ import com.comp474.calender.comp474calender.entity.Events;
 import com.comp474.calender.comp474calender.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -30,5 +33,18 @@ public class UserService {
       //TODO
       // change the redirect to login
       return "redirect:https://www.google.com";
+   }
+
+   public HttpStatus login(String email, String password) {
+      if (userRepo.existsById(email)) {
+         User user = userRepo.getOne(email);
+         if (password.equals(user.getPassword())) {
+            return HttpStatus.OK;
+         } else {
+            return HttpStatus.BAD_REQUEST;
+         }
+      } else {
+         return HttpStatus.BAD_REQUEST;
+      }
    }
 }
