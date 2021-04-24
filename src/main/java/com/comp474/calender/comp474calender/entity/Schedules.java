@@ -44,5 +44,8 @@ public class Schedules implements Serializable {
 
     @Column(name = "numStudentsAllowed")
     private int numStudentsAllowed;
+
+    @Column(name = "ownerId")
+    private String ownerId;
 }
 
