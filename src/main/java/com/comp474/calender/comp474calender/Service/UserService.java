@@ -35,16 +35,16 @@ public class UserService {
       return "redirect:https://www.google.com";
    }
 
-   public HttpStatus login(String email, String password) {
+   public String login(String email, String password) {
       if (userRepo.existsById(email)) {
          User user = userRepo.getOne(email);
          if (password.equals(user.getPassword())) {
-            return HttpStatus.OK;
+            return user.getRole();
          } else {
-            return HttpStatus.BAD_REQUEST;
+            return "WRONG PASSWORD";
          }
       } else {
-         return HttpStatus.BAD_REQUEST;
+         return "NO USER WITH THAT EMAIL";
       }
    }
 }

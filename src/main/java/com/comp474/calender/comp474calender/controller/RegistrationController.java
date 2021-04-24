@@ -27,7 +27,7 @@ public class RegistrationController {
         // redirect to login
     }
     @GetMapping("/login")
-    public HttpStatus login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    public String login(@RequestParam("email") String email, @RequestParam("password") String password) {
         // send back whether login was successful by checking db
         return userService.login(email, password);
     }

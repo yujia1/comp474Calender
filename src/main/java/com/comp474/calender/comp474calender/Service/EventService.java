@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -51,5 +52,21 @@ public class EventService {
     public List<Events> findAllEvents() {
 
         return eventRepo.findAll();
+    }
+
+    public String findEventsForUser(String email) {
+        if (email != null) {
+            List<Events> allEvents = eventRepo.findAll();
+            List<Events> userEvents = new LinkedList<Events>();
+
+            for (int i = 0; i < allEvents.size(); i++) {
+                if (allEvents.get(i).getUsers().equals(email)) {
+                    userEvents.add(allEvents.get(i));
+                }
+            }
+            return allEvents.get(0).getUsers().getEmailId();
+        } else {
+            return "new LinkedList<Events>()";
+        }
     }
 }

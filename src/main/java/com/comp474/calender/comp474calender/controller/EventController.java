@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class EventController {
 
@@ -30,8 +31,15 @@ public class EventController {
     public Events updateAppointment(@RequestBody Events events){
        return eventService.updateEvent(events);
     }
+
     @GetMapping("/events/all")
     public List<Events> findAllEvents() {
         return eventService.findAllEvents();
+    }
+
+//    @GetMapping("/events/byEmail")
+    @RequestMapping(value = "/events/byEmail", method = RequestMethod.GET)
+    public String findEventsByUser(@RequestParam(required=false, name="email") String email) {
+        return eventService.findEventsForUser(email);
     }
 }

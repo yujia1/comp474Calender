@@ -49,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user").hasAnyRole("PROF","STUD")
                 .antMatchers("/appointment/**").permitAll()
                 .antMatchers(  "/login","/registration").permitAll()
+                .antMatchers(  "/events/**").permitAll()
+                .antMatchers(  "/schedules/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -75,5 +77,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static NoOpPasswordEncoder passwordEncoder(){
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
-
 }
